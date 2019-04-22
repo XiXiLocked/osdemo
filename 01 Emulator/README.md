@@ -65,11 +65,18 @@ cd到解压好bochs源码的目录，configure生成Makefile，此处**/your_pat
 
 	./bin/bximage -hd -mode="flat" -size=60 -q hd60M.img
 
+
 复制下生成时候的一句话，下面要用
 
 	ata0-master: type=disk, path="hd60M.img", mode=flat, cylinders=121, heads=16, spt=63
 	
-	
+### 小发现
+如果你和我一样无聊，可能会发现这个**hd60M.img**其实没有60M，会稍微少一点，而且用二进制工具查看发现文件里面都是0。为什么？
+
+-  全是0 : 这个好理解，新硬盘就是全0，干净。
+- 比60M小 : 这个有点超纲，是和机械硬盘的物理性质有关。容量的计算公式是cylinders * heads * spt * 512，所有的扇区数*每扇区512字节。
+
+所以bximage做的事情就是算出尽量满足上面式子的和手动给出的容量的数字，然后填充对应数量的0，是个人都会做。
 
 ## 创建bochs配置
 基本配置，要更改**/your_path/bochs**为bochs的安装目录。最后一行就是刚刚生成硬盘复制来的。保存为**bochsrc.disk**
