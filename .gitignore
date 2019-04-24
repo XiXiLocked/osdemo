@@ -31,10 +31,5 @@
 *.out
 *.app
 
-bin/bochs
-bin/disk.disk
-bin/hd60M.img
-bin/bochs.out
-bin/bochs-2.6.2.tar.gz
-bin/mbr.bin
+bin/*
 
