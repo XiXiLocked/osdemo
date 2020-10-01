@@ -78,17 +78,18 @@ nasm 直接用包管理装。
 dd 应该是系统自带的
 
 # 原料
-在`03 MBR`
+在`03 MBR`目录下，编译代码
 ```
 	nasm -o ../bin/mbr.bin mbr.S
 	nasm -o ../bin/loader.bin loader.S
 ```
 
-`bin`
+在`bin`目录下，把代码写入硬盘。
 ```
 	dd if=mbr.bin of=hd60M.img bs=512 count=1 conv=notrunc
 	dd if=loader.bin of=hd60M.img bs=512 count=1 seek=2 conv=notrunc
 ```
+注意MBR必须写入0扇区，而loader则是因为mbr写了要读取02扇区所以也要写入02扇区(seek=2)
 
 # 代码解释
 -  `boot.inc`
