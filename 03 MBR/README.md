@@ -78,15 +78,20 @@ nasm 直接用包管理装。
 dd 应该是系统自带的
 
 # 原料
-在02 Boot里
+在`03 MBR`
+```
+	nasm -o ../bin/mbr.bin mbr.S
+	nasm -o ../bin/loader.bin loader.S
+```
 
-	nasm -o mbr.bin mbr.S
-	
-	dd if=mbr.bin of=../bin/hd60M.img bs=512 count=1 conv=notrunc
+`bin`
+```
+	dd if=mbr.bin of=hd60M.img bs=512 count=1 conv=notrunc
+	dd if=loader.bin of=hd60M.img bs=512 count=1 seek=2 conv=notrunc
+```
 
 # 代码解释
 -  `boot.inc`
-  
   是简单的宏定义，当一个配置文件的。语法就是   
    ```
    MACRONAME equ value
